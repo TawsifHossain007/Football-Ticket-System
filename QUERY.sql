@@ -59,4 +59,38 @@ INSERT INTO bookings (booking_id, user_id, match_id, seat_number, payment_status
 (504, 2, 101, NULL, NULL, 150.00),
 (505, 3, 102, 'C-20', 'Pending', 120.00);
 (505, 3, 102, 'C-20', 'PFSending', 120.00);
-drop table users
+
+
+SELECT
+  match_id,
+  fixture,
+  base_ticket_price
+FROM
+  matches
+WHERE
+  (
+    tournament_category = 'Champions League'
+    AND match_status = 'Available'
+  )
+  
+SELECT
+  user_id,
+  full_name,
+  email
+FROM
+  users
+WHERE
+  full_name ILIKE 'Tanvir%'
+  OR full_name ILIKE '%Haque'
+  
+SELECT
+  booking_id,
+  user_id,
+  match_id,
+  seat_number,
+  COALESCE(payment_status, 'Action Required') AS payment_status,
+  total_cost
+FROM
+  bookings
+WHERE
+  payment_status IS NULL
